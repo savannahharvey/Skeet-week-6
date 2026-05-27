@@ -1,0 +1,13 @@
+# Visual Studio hidden caching folders
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+
+# Build artifacts
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.suo

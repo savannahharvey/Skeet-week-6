@@ -19,7 +19,9 @@
 #include "score.h"
 #include "points.h"
 
+
 #include <list>
+class ProjectileHandler;
 
 /*************************************************************************
  * Skeet
@@ -28,8 +30,8 @@
 class Skeet
 {
 public:
-    Skeet(Position & dimensions) : dimensions(dimensions),
-        gun(Position(800.0, 0.0)), time(), score(), hitRatio(), bullseye(false) {}
+   Skeet(Position& dimensions);
+   ~Skeet();
 
     // handle all user input
     void interact(const UserInput& ui);
@@ -57,6 +59,7 @@ private:
     std::list<Bullet*> bullets;    // the bullets
     std::list<Effect*> effects;    // the fragments of a dead bird.
     std::list<Points>  points;     // point values;
+    std::list<ProjectileHandler*> projectileHandlers; // projectile creation handlers
     Time time;                     // how many frames have transpired since the beginning
     Score score;                   // the player's score
     HitRatio hitRatio;             // the hit ratio for the birds

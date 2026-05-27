@@ -26,6 +26,7 @@
     <ClCompile Include="gun.cpp" />
     <ClCompile Include="points.cpp" />
     <ClCompile Include="position.cpp" />
+    <ClCompile Include="projectileHandler.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="skeet.cpp" />
     <ClCompile Include="time.cpp" />
@@ -38,6 +39,7 @@
     <ClInclude Include="gun.h" />
     <ClInclude Include="points.h" />
     <ClInclude Include="position.h" />
+    <ClInclude Include="projectileHandler.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="skeet.h" />
     <ClInclude Include="time.h" />

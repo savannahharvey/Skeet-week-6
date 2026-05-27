@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include "skeet.h"
+#include "projectileHandler.h"
 using namespace std;
 
 
@@ -30,6 +31,35 @@ using namespace std;
 #include <math.h>
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
+
+/************************
+ * SKEET CONSTRUCTOR
+ * Initialize the game and build the projectile handler chain
+ ************************/
+Skeet::Skeet(Position& dimensions) :
+   dimensions(dimensions),
+   gun(Position(800.0, 0.0)),
+   time(),
+   score(),
+   hitRatio(),
+   bullseye(false)
+{
+   projectileHandlers.push_back(new PelletHandler());
+   projectileHandlers.push_back(new MissileHandler());
+   projectileHandlers.push_back(new BombHandler());
+}
+
+/************************
+ * SKEET DESTRUCTOR
+ * Delete projectile handlers
+ ************************/
+Skeet::~Skeet()
+{
+   for (auto handler : projectileHandlers)
+      delete handler;
+
+   projectileHandlers.clear();
+}
 
 /************************
  * SKEET ANIMATE
@@ -368,23 +398,23 @@ void Skeet::interact(const UserInput & ui)
 
    // gather input from the interface
    gun.interact(ui.isUp() + ui.isRight(), ui.isDown() + ui.isLeft());
-   Bullet *p = nullptr;
 
-   // a pellet can be shot at any time
-   if (ui.isSpace())
-      p = new Pellet(gun.getAngle());
-   // missiles can be shot at level 2 and higher
-   else if (ui.isM() && time.level() > 1)
-      p = new Missile(gun.getAngle());
-   // bombs can be shot at level 3 and higher
-   else if (ui.isB() && time.level() > 2)
-      p = new Bomb(gun.getAngle());
-   
+   // pass projectile creation through the chain of responsibility
+   ProjectileRequest request =
+   {
+      ui,
+      time.level(),
+      gun.getAngle(),
+      bullets
+   };
+
+   for (auto handler : projectileHandlers)
+   {
+      if (handler->handleRequest(request))
+         break;
+   }
+
    bullseye = ui.isShift();
-
-   // add something if something has been added
-   if (nullptr != p)
-      bullets.push_back(p);
    
    // send movement information to all the bullets. Only the missile cares.
    for (auto bullet : bullets)
