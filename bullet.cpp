@@ -95,13 +95,37 @@ void Bomb::move(std::list<Effect*> & effects)
 }
 
 /*********************************************
+ * MISSILE UPDATE
+ * Track steering state from keyboard events.
+ *********************************************/
+void Missile::update(const InteractMessage& message)
+{
+   switch (message.keyPressed)
+   {
+      case GLUT_KEY_UP:
+         steerUp = message.isDown;
+         break;
+      case GLUT_KEY_DOWN:
+         steerDown = message.isDown;
+         break;
+      default:
+         break;
+   }
+}
+
+/*********************************************
  * MISSILE MOVE
  * Move the missile along by one time period
  *********************************************/
 void Missile::move(std::list<Effect*> & effects)
 {
+    if (steerUp && !steerDown)
+        v.turn(0.04);
+    else if (steerDown && !steerUp)
+        v.turn(-0.04);
+
     // kill if it has been around too long
-   effects.push_back(new Exhaust(pt, v));
+    effects.push_back(new Exhaust(pt, v));
 
     // do the inertia thing
     Bullet::move(effects);

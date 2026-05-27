@@ -18,8 +18,26 @@
 
 #include "position.h"
 #include <algorithm> // used for min() and max() (specifically required by Visual Studio)
+#include <list>
 using std::min;
 using std::max;
+
+/****************************************************************************
+ * OBSERVER PATTERN
+ * A simple message and observer interface for keyboard events.
+ ****************************************************************************/
+struct InteractMessage
+{
+   int keyPressed;
+   bool isDown;
+};
+
+class InteractObserver
+{
+public:
+   virtual void update(const InteractMessage& message) = 0;
+   virtual ~InteractObserver() {}
+};
 
 /********************************************
  * INTERFACE
@@ -41,7 +59,15 @@ public:
    }
 
    // This will set the game in motion
-   void run(void (*callBack)(const UserInput *, void *), void *p);
+   static void run(void (*callBack)(const UserInput *, void *), void *p);
+
+   // Subscribe an observer so it gets keyboard event notifications
+   static void subscribe(InteractObserver* observer);
+   static void unsubscribe(InteractObserver* observer);
+   static void notify(const InteractMessage& message);
+
+   // Initialize OpenGL and the input system
+   static void initialize(int argc, char ** argv, const char * title, const Position & dimensions);
 
    // Is it time to redraw the screen
    bool isTimeToDraw();
@@ -77,11 +103,11 @@ public:
    static void (*callBack)(const UserInput *, void *);
 
 private:
-   void initialize(int argc, char ** argv, const char * title, const Position & dimensions);
-
    static bool         initialized;  // only run the constructor once!
    static double       timePeriod;   // interval between frame draws
    static unsigned long nextTick;     // time (from clock()) of our next output
+
+   static std::list<InteractObserver*> audience; // observers waiting for key events
 
    static int  isDownPress;          // is the down arrow currently pressed?
    static int  isUpPress;            //    "   up         "

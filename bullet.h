@@ -9,6 +9,7 @@
 
 #pragma once
 #include "position.h"
+#include "uiInteract.h"
 #include "effect.h"
 #include <list>
 #include <cassert>
@@ -29,6 +30,7 @@ protected:
     
 public:
    Bullet(double angle = 0.0, double speed = 30.0, double radius = 5.0, int value = 1);
+   virtual ~Bullet() {}
    
    // setters
    void kill()                   { dead = true; }
@@ -122,12 +124,20 @@ public:
  * MISSILE
  * Guided missiles
  **********************/
-class Missile : public Bullet
+class Missile : public Bullet, public InteractObserver
 {
 public:
-   Missile(double angle, double speed = 10.0) : Bullet(angle, speed, 1.0, 3) {}
+   Missile(double angle, double speed = 10.0) : Bullet(angle, speed, 1.0, 3), steerUp(false), steerDown(false)
+   {
+      UserInput::subscribe(this);
+   }
+   ~Missile()
+   {
+      UserInput::unsubscribe(this);
+   }
    
    void output();
+   void update(const InteractMessage& message) override;
    void input(bool isUp, bool isDown, bool isB)
    {
       if (isUp)
@@ -136,4 +146,8 @@ public:
          v.turn(-0.04);
    }
    void move(std::list<Effect*> & effects);
+
+private:
+   bool steerUp;
+   bool steerDown;
 };

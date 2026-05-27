@@ -104,6 +104,47 @@ void Gun::display() const
 }
 
 /*********************************************
+ * GUN : UPDATE
+ * Observe key presses/releases and track steering state.
+ *********************************************/
+void Gun::update(const InteractMessage& message)
+{
+   switch (message.keyPressed)
+   {
+      case GLUT_KEY_UP:
+      case GLUT_KEY_RIGHT:
+         isClockwise = message.isDown;
+         break;
+      case GLUT_KEY_DOWN:
+      case GLUT_KEY_LEFT:
+         isCounterclockwise = message.isDown;
+         break;
+      default:
+         break;
+   }
+}
+
+/*********************************************
+ * GUN : ANIMATE
+ * Apply steering state each frame.
+ *********************************************/
+void Gun::animate()
+{
+   if (isClockwise && !isCounterclockwise)
+   {
+      angle += 0.025;
+      if (angle > M_PI_2)
+         angle = M_PI_2;
+   }
+   else if (isCounterclockwise && !isClockwise)
+   {
+      angle -= 0.025;
+      if (angle < 0.0)
+         angle = 0.0;
+   }
+}
+
+/*********************************************
  * GUN : INTERACT
  * Move the gun
  *********************************************/

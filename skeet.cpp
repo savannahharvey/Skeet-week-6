@@ -49,6 +49,8 @@ void Skeet::animate()
       points.clear();
       return;
    }
+
+   gun.animate();
    
    // spawn
    spawn();
@@ -366,8 +368,6 @@ void Skeet::interact(const UserInput & ui)
       return;
    }
 
-   // gather input from the interface
-   gun.interact(ui.isUp() + ui.isRight(), ui.isDown() + ui.isLeft());
    Bullet *p = nullptr;
 
    // a pellet can be shot at any time
@@ -386,9 +386,6 @@ void Skeet::interact(const UserInput & ui)
    if (nullptr != p)
       bullets.push_back(p);
    
-   // send movement information to all the bullets. Only the missile cares.
-   for (auto bullet : bullets)
-      bullet->input(ui.isUp() + ui.isRight(), ui.isDown() + ui.isLeft(), ui.isB()); 
 }
 
 /******************************************************************

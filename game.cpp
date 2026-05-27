@@ -61,7 +61,7 @@ int main(int argc, char** argv)
 {
    // initialize OpenGL
    Position dimensions(WIDTH, HEIGHT);
-   UserInput ui(0, NULL,
+   UserInput::initialize(0, NULL,
       "Skeet",
       dimensions);
 
@@ -69,7 +69,7 @@ int main(int argc, char** argv)
    Skeet skeet(dimensions);
 
    // set everything into action
-   ui.run(callBack, &skeet);
+   UserInput::run(callBack, &skeet);
 
    return 0;
 }

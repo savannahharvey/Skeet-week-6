@@ -195,6 +195,11 @@ void UserInput::keyEvent(int key, bool fDown)
    }
 
    isShiftPress = (glutGetModifiers () == GLUT_ACTIVE_SHIFT);
+
+   InteractMessage message;
+   message.keyPressed = key;
+   message.isDown = fDown;
+   notify(message);
 }
 
 /***************************************************************
@@ -268,6 +273,7 @@ double       UserInput::timePeriod   = 1.0 / 30; // default to 30 frames/second
 unsigned long UserInput::nextTick     = 0;        // redraw now please
 void *       UserInput::p            = NULL;
 void (*UserInput::callBack)(const UserInput *, void *) = NULL;
+std::list<InteractObserver*> UserInput::audience;
 
 
 /************************************************************************
@@ -333,9 +339,26 @@ void UserInput::initialize(int argc, char ** argv, const char * title, const Pos
 void UserInput::run(void (*callBack)(const UserInput *, void *), void *p)
 {
    // setup the callbacks
-   this->p = p;
-   this->callBack = callBack;
+   UserInput::p = p;
+   UserInput::callBack = callBack;
 
    glutMainLoop();
    return;
+}
+
+void UserInput::subscribe(InteractObserver* observer)
+{
+   if (observer && std::find(audience.begin(), audience.end(), observer) == audience.end())
+      audience.push_back(observer);
+}
+
+void UserInput::unsubscribe(InteractObserver* observer)
+{
+   audience.remove(observer);
+}
+
+void UserInput::notify(const InteractMessage& message)
+{
+   for (InteractObserver* observer : audience)
+      observer->update(message);
 }
