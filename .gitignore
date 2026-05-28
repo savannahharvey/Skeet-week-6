@@ -1,0 +1,24 @@
+# Visual Studio
+.vs/
+*.user
+
+# Build outputs
+x64/
+Debug/
+Release/
+Skeet/x64/
+Skeet/Debug/
+Skeet/Release/
+
+# Compiled/intermediate files
+*.obj
+*.pdb
+*.ilk
+*.exe
+*.recipe
+*.log
+*.tlog
+*.idb
+*.lastbuildstate
+*.FileListAbsolute.txt
+*.Build.CppClean.log
