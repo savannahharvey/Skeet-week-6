@@ -7,8 +7,9 @@
  *    Inert point values on the screen.
  ************************************************************************/
 
- #include "points.h"
- #include <cassert>
+#include "points.h"
+#include "message.h"
+#include <cassert>
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -44,11 +45,21 @@ double randomValue(double min, double max)
    return num;
 }
 
- /*********************************************
-  * POINTS Constructor
-  * Create a new points value
-  *********************************************/
-Points::Points(const Position & pt, int value)
+
+/************************
+ * POINTS ACCEPT
+ * Accept a visitor message.
+ ************************/
+void Points::accept(Message& message)
+{
+   message.visitPoints(this);
+}
+
+/*********************************************
+ * POINTS Constructor
+ * Create a new points value
+ *********************************************/
+Points::Points(const Position& pt, int value)
 {
    // initial position is where the bullet was last seen
    this->pt = pt;
@@ -80,9 +91,9 @@ void Points::show() const
    void* pFont = GLUT_TEXT;
 
    // set the color
-   GLfloat red   = (value <= 0.0 ? 1.0 : 0.0) * age;
+   GLfloat red = (value <= 0.0 ? 1.0 : 0.0) * age;
    GLfloat green = (value <= 0.0 ? 0.0 : 1.0) * age;
-   GLfloat blue  = 0.0;
+   GLfloat blue = 0.0;
    glColor3f(red, green, blue);
 
    // specify the position

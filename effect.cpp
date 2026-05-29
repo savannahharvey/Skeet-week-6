@@ -8,6 +8,7 @@
  ************************************************************************/
 
 #include "effect.h"
+#include "message.h"
 #include <cassert>
 
 #ifdef __APPLE__
@@ -32,10 +33,10 @@
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
 
-/******************************************************************
- * RANDOM
- * This function generates a random number.
- ****************************************************************/
+ /******************************************************************
+  * RANDOM
+  * This function generates a random number.
+  ****************************************************************/
 double random(double min, double max)
 {
    assert(min <= max);
@@ -46,6 +47,16 @@ double random(double min, double max)
 
 
 
+
+/************************
+ * EFFECT ACCEPT
+ * Accept a visitor message.
+ ************************/
+void Effect::accept(Message& message)
+{
+   message.visitEffect(this);
+}
+
 /***************************************************************/
 /***************************************************************/
 /*                       CONSTRUCTORS                          */
@@ -55,43 +66,43 @@ double random(double min, double max)
 /************************************************************************
  * FRAGMENT constructor
  *************************************************************************/
-Fragment::Fragment(const Position & pt, const Velocity & v) : Effect(pt)
+Fragment::Fragment(const Position& pt, const Velocity& v) : Effect(pt)
 {
    // the velocity is a random kick plus the velocity of the thing that died
    this->v.setDx(v.getDx() * 0.5 + random(-6.0, 6.0));
    this->v.setDy(v.getDy() * 0.5 + random(-6.0, 6.0));
-   
-    // age
-    age = random(0.4, 1.0);
-    
-    // size
-    size = random(1.0, 2.5);
+
+   // age
+   age = random(0.4, 1.0);
+
+   // size
+   size = random(1.0, 2.5);
 }
 
 /************************************************************************
  * STREEK constructor
  *************************************************************************/
-Streek::Streek(const Position & pt, Velocity v) : Effect(pt)
+Streek::Streek(const Position& pt, Velocity v) : Effect(pt)
 {
    ptEnd = pt;
    v *= -1.0;
    ptEnd += v;
-   
-    // age
-    age = 0.5;
+
+   // age
+   age = 0.5;
 }
 
 /************************************************************************
  * EXHAUST constructor
  *************************************************************************/
-Exhaust::Exhaust(const Position & pt, Velocity v) : Effect(pt)
+Exhaust::Exhaust(const Position& pt, Velocity v) : Effect(pt)
 {
-    ptEnd = pt;
-    v *= -1.0;
-    ptEnd += v;
+   ptEnd = pt;
+   v *= -1.0;
+   ptEnd += v;
 
-    // age
-    age = 0.5;
+   // age
+   age = 0.5;
 }
 
 /***************************************************************/
@@ -106,23 +117,23 @@ Exhaust::Exhaust(const Position & pt, Velocity v) : Effect(pt)
  *************************************************************************/
 void Fragment::render() const
 {
-    // Do nothing if we are already dead
-    if (isDead())
-        return;
-    
-    // Draw this sucker
-    glBegin(GL_TRIANGLE_FAN);
-    
-    // the color is a function of age - fading to black
-    glColor3f((GLfloat)age, (GLfloat)age, (GLfloat)age);
-    
-    // draw the fragment
-    glVertex2f((GLfloat)(pt.getX() - size), (GLfloat)(pt.getY() - size));
-    glVertex2f((GLfloat)(pt.getX() + size), (GLfloat)(pt.getY() - size));
-    glVertex2f((GLfloat)(pt.getX() + size), (GLfloat)(pt.getY() + size));
-    glVertex2f((GLfloat)(pt.getX() - size), (GLfloat)(pt.getY() + size));
-    glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
-    glEnd();
+   // Do nothing if we are already dead
+   if (isDead())
+      return;
+
+   // Draw this sucker
+   glBegin(GL_TRIANGLE_FAN);
+
+   // the color is a function of age - fading to black
+   glColor3f((GLfloat)age, (GLfloat)age, (GLfloat)age);
+
+   // draw the fragment
+   glVertex2f((GLfloat)(pt.getX() - size), (GLfloat)(pt.getY() - size));
+   glVertex2f((GLfloat)(pt.getX() + size), (GLfloat)(pt.getY() - size));
+   glVertex2f((GLfloat)(pt.getX() + size), (GLfloat)(pt.getY() + size));
+   glVertex2f((GLfloat)(pt.getX() - size), (GLfloat)(pt.getY() + size));
+   glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
+   glEnd();
 }
 
 /************************************************************************
@@ -131,20 +142,20 @@ void Fragment::render() const
  *************************************************************************/
 void Streek::render() const
 {
-    // Do nothing if we are already dead
-    if (isDead())
-        return;
-    
-    // Draw this sucker
-    glBegin(GL_LINES);
-    glColor3f((GLfloat)age, (GLfloat)age, (GLfloat)age);
+   // Do nothing if we are already dead
+   if (isDead())
+      return;
 
-    // Draw the actual line
-    glVertex2f((GLfloat)pt.getX(), (GLfloat)pt.getY());
-    glVertex2f((GLfloat)ptEnd.getX(), (GLfloat)ptEnd.getY());
+   // Draw this sucker
+   glBegin(GL_LINES);
+   glColor3f((GLfloat)age, (GLfloat)age, (GLfloat)age);
 
-    glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
-    glEnd();
+   // Draw the actual line
+   glVertex2f((GLfloat)pt.getX(), (GLfloat)pt.getY());
+   glVertex2f((GLfloat)ptEnd.getX(), (GLfloat)ptEnd.getY());
+
+   glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
+   glEnd();
 }
 
 /************************************************************************
@@ -155,8 +166,8 @@ void Exhaust::render() const
 {
    // Do nothing if we are already dead
    if (isDead())
-       return;
-   
+      return;
+
    // Draw this sucker
    glBegin(GL_LINES);
    glColor3f((GLfloat)age, (GLfloat)age, (GLfloat)age);
@@ -179,25 +190,25 @@ void Exhaust::render() const
  * FRAGMENT FLY
  * Move the fragment on the screen
  *************************************************************************/
-void Fragment :: fly()
+void Fragment::fly()
 {
-    // move it forward with inertia (no gravity)
-    pt += v;
-    
-    // increase the age so it fades away
-    age -= 0.02;
-    size *= 0.95;
+   // move it forward with inertia (no gravity)
+   pt += v;
+
+   // increase the age so it fades away
+   age -= 0.02;
+   size *= 0.95;
 }
 
 /************************************************************************
  * STREEK FLY
  * The streek will just fade away
  *************************************************************************/
-void Streek :: fly()
+void Streek::fly()
 {
-    // move it forward with inertia (no gravity)
+   // move it forward with inertia (no gravity)
 //    pt += v;
-    
+
    // increase the age so it fades away
    age -= 0.10;
 }
@@ -206,11 +217,11 @@ void Streek :: fly()
  * EXHAUST FLY
  * The exhaust will just fade away
  *************************************************************************/
-void Exhaust :: fly()
+void Exhaust::fly()
 {
    // move it forward with inertia (no gravity)
 //   pt += v;
-    
+
    // increase the age so it fades away
    age -= 0.025;
 }

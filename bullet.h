@@ -9,15 +9,16 @@
 
 #pragma once
 #include "position.h"
+#include "entity.h"
 #include "effect.h"
 #include <list>
 #include <cassert>
 
-/*********************************************
- * BULLET
- * Something to shoot something else
- *********************************************/
-class Bullet
+ /*********************************************
+  * BULLET
+  * Something to shoot something else
+  *********************************************/
+class Bullet : public Entity
 {
 protected:
    static Position dimensions;   // size of the screen
@@ -26,26 +27,28 @@ protected:
    double radius;             // the size (radius) of the bullet
    bool dead;                 // is this bullet dead?
    int value;                 // how many points does this cost?
-    
+
 public:
    Bullet(double angle = 0.0, double speed = 30.0, double radius = 5.0, int value = 1);
-   
+   virtual ~Bullet() {}
+   void accept(Message& message);
+
    // setters
-   void kill()                   { dead = true; }
-   void setValue(int newValue)   { value = newValue; }
-   
+   void kill() { dead = true; }
+   void setValue(int newValue) { value = newValue; }
+
    // getters
-   bool isDead()           const { return dead;   }
-   Position getPosition()  const { return pt;     }
-   Velocity getVelocity()  const { return v;      }
+   bool isDead()           const { return dead; }
+   Position getPosition()  const { return pt; }
+   Velocity getVelocity()  const { return v; }
    double getRadius()      const { return radius; }
-   int getValue()          const { return value;  }
+   int getValue()          const { return value; }
 
    // special functions
-   virtual void death(std::list<Bullet *> & bullets) {}
+   virtual void death(std::list<Entity*>& entities) {}
    virtual void output() = 0;
    virtual void input(bool isUp, bool isDown, bool isB) {}
-   virtual void move(std::list<Effect*> &effects);
+   virtual void move(std::list<Entity*>& entities);
 
 protected:
    bool isOutOfBounds() const
@@ -54,10 +57,10 @@ protected:
          pt.getY() < -radius || pt.getY() >= dimensions.getY() + radius);
    }
    void drawLine(const Position& begin, const Position& end,
-                 double red = 1.0, double green = 1.0, double blue = 1.0) const;
+      double red = 1.0, double green = 1.0, double blue = 1.0) const;
 
    void drawDot(const Position& point, double radius = 2.0,
-                double red = 1.0, double green = 1.0, double blue = 1.0) const;
+      double red = 1.0, double green = 1.0, double blue = 1.0) const;
    int    random(int    min, int    max);
    double random(double min, double max);
 };
@@ -70,7 +73,7 @@ class Pellet : public Bullet
 {
 public:
    Pellet(double angle, double speed = 15.0) : Bullet(angle, speed, 1.0, 1) {}
-   
+
    void output();
 };
 
@@ -84,10 +87,10 @@ private:
    int timeToDie;
 public:
    Bomb(double angle, double speed = 10.0) : Bullet(angle, speed, 4.0, 4), timeToDie(60) {}
-   
+
    void output();
-   void move(std::list<Effect*> & effects);
-   void death(std::list<Bullet *> & bullets);
+   void move(std::list<Entity*>& entities);
+   void death(std::list<Entity*>& entities);
 };
 
 /*********************
@@ -99,22 +102,22 @@ class Shrapnel : public Bullet
 private:
    int timeToDie;
 public:
-   Shrapnel(const Bomb & bomb)
+   Shrapnel(const Bomb& bomb)
    {
       // how long will this one live?
       timeToDie = random(5, 15);
-      
+
       // The speed and direction is random
       v.set(random(0.0, 6.2), random(10.0, 15.0));
       pt = bomb.getPosition();
 
       value = 0;
-      
+
       radius = 3.0;
    }
-   
-   void output();  
-   void move(std::list<Effect*> & effects);
+
+   void output();
+   void move(std::list<Entity*>& entities);
 };
 
 
@@ -126,7 +129,7 @@ class Missile : public Bullet
 {
 public:
    Missile(double angle, double speed = 10.0) : Bullet(angle, speed, 1.0, 3) {}
-   
+
    void output();
    void input(bool isUp, bool isDown, bool isB)
    {
@@ -135,5 +138,5 @@ public:
       if (isDown)
          v.turn(-0.04);
    }
-   void move(std::list<Effect*> & effects);
+   void move(std::list<Entity*>& entities);
 };

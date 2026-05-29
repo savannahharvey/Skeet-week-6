@@ -11,18 +11,20 @@
 #pragma once
 
 #include "position.h"
+#include "entity.h"
 
  /*********************************************
   * POINTS
   * Points graphic drawn on the screen
   *********************************************/
-class Points
+class Points : public Entity
 {
 public:
    Points(const Position& pt, int value);
+   void accept(Message& message);
    void show() const;
    void update();
-   bool isDead() const {return age <= 0.0; }
+   bool isDead() const { return age <= 0.0; }
 private:
    Position pt;
    Velocity v;

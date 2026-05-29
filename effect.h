@@ -9,27 +9,30 @@
 
 #pragma once
 #include "position.h"
+#include "entity.h"
 
-/**********************
- * Effect: stuff that is not interactive
- **********************/
-class Effect
+ /**********************
+  * Effect: stuff that is not interactive
+  **********************/
+class Effect : public Entity
 {
 protected:
-    Position pt;      // location of the effect
-    double age;    // 1.0 = new, 0.0 = dead
+   Position pt;      // location of the effect
+   double age;    // 1.0 = new, 0.0 = dead
 public:
-    // create a fragment based on the velocity and position of the bullet
-    Effect(const Position & pt) : pt(pt), age(0.5) {}
-    
-    // draw it
-    virtual void render() const = 0;
-    
-    // move it forward with regards to inertia. Let it age
-    virtual void fly() = 0;
-    
-    // it is dead when age goes to 0.0
-    bool isDead() const { return age <= 0.0; }
+   // create a fragment based on the velocity and position of the bullet
+   Effect(const Position& pt) : pt(pt), age(0.5) {}
+   virtual ~Effect() {}
+   void accept(Message& message);
+
+   // draw it
+   virtual void render() const = 0;
+
+   // move it forward with regards to inertia. Let it age
+   virtual void fly() = 0;
+
+   // it is dead when age goes to 0.0
+   bool isDead() const { return age <= 0.0; }
 };
 
 /**********************
@@ -42,14 +45,14 @@ private:
    Velocity v;    // direction the fragment is flying
    double size;   // size of the fragment
 public:
-    // create a fragment based on the velocity and position of the bullet
-    Fragment(const Position & pt, const Velocity & v);
-    
-    // draw it
-    void render() const;
-    
-    // move it forward with regards to inertia. Let it age
-    void fly();
+   // create a fragment based on the velocity and position of the bullet
+   Fragment(const Position& pt, const Velocity& v);
+
+   // draw it
+   void render() const;
+
+   // move it forward with regards to inertia. Let it age
+   void fly();
 };
 
 /**********************
@@ -61,14 +64,14 @@ class Streek : public Effect
 private:
    Position ptEnd;
 public:
-    // create a fragment based on the velocity and position of the bullet
-    Streek(const Position & pt, Velocity v);
-    
-    // draw it
-    void render() const;
-    
-    // move it forward with regards to inertia. Let it age
-    void fly();
+   // create a fragment based on the velocity and position of the bullet
+   Streek(const Position& pt, Velocity v);
+
+   // draw it
+   void render() const;
+
+   // move it forward with regards to inertia. Let it age
+   void fly();
 };
 
 /**********************
@@ -80,12 +83,12 @@ class Exhaust : public Effect
 private:
    Position ptEnd;
 public:
-    // create a fragment based on the velocity and position of the bullet
-    Exhaust(const Position & pt, Velocity v);
-    
-    // draw it
-    void render() const;
-    
-    // move it forward with regards to inertia. Let it age
-    void fly();
+   // create a fragment based on the velocity and position of the bullet
+   Exhaust(const Position& pt, Velocity v);
+
+   // draw it
+   void render() const;
+
+   // move it forward with regards to inertia. Let it age
+   void fly();
 };

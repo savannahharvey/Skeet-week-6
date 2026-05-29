@@ -9,6 +9,7 @@
 
 #include <cassert>
 #include "bird.h"
+#include "message.h"
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -32,6 +33,16 @@
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
 
+
+
+ /************************
+  * BIRD ACCEPT
+  * Accept a visitor message.
+  ************************/
+void Bird::accept(Message& message)
+{
+   message.visitBird(this);
+}
 
 /***************************************************************/
 /***************************************************************/
@@ -145,11 +156,11 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
    this->radius = radius;
 }
 
- /***************************************************************/
- /***************************************************************/
- /*                            ADVANCE                          */
- /***************************************************************/
- /***************************************************************/
+/***************************************************************/
+/***************************************************************/
+/*                            ADVANCE                          */
+/***************************************************************/
+/***************************************************************/
 
 /*********************************************
  * STANDARD ADVANCE
@@ -249,7 +260,7 @@ void Sinker::advance()
  * Draw a filled circule at [center] with size [radius]
  *************************************************************************/
 void drawDisk(const Position& center, double radius,
-              double red, double green, double blue)
+   double red, double green, double blue)
 {
    assert(radius > 1.0);
    const double increment = M_PI / radius;  // bigger the circle, the more increments

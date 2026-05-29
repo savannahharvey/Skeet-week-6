@@ -8,6 +8,7 @@
  ************************************************************************/
 
 #include "bullet.h"
+#include "message.h"
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -31,6 +32,16 @@
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
 
+
+ /************************
+  * BULLET ACCEPT
+  * Accept a visitor message.
+  ************************/
+void Bullet::accept(Message& message)
+{
+   message.visitBullet(this);
+}
+
 /*********************************************
  * BULLET constructor
  *********************************************/
@@ -53,23 +64,23 @@ Bullet::Bullet(double angle, double speed, double radius, int value) :
  * BOMB DEATH
  * Bombs have a tendency to explode!
  *********************************************/
-void Bomb::death(std::list<Bullet*>& bullets)
+void Bomb::death(std::list<Entity*>& entities)
 {
    for (int i = 0; i < 20; i++)
-      bullets.push_back(new Shrapnel(*this));
+      entities.push_back(new Shrapnel(*this));
 }
 
- /***************************************************************/
- /***************************************************************/
- /*                             MOVE                            */
- /***************************************************************/
- /***************************************************************/
+/***************************************************************/
+/***************************************************************/
+/*                             MOVE                            */
+/***************************************************************/
+/***************************************************************/
 
 /*********************************************
  * BULLET MOVE
  * Move the bullet along by one time period
  *********************************************/
-void Bullet::move(std::list<Effect*> & effects)
+void Bullet::move(std::list<Entity*>& entities)
 {
    // inertia
    pt.add(v);
@@ -83,46 +94,46 @@ void Bullet::move(std::list<Effect*> & effects)
  * BOMB MOVE
  * Move the bomb along by one time period
  *********************************************/
-void Bomb::move(std::list<Effect*> & effects)
+void Bomb::move(std::list<Entity*>& entities)
 {
-    // kill if it has been around too long
-    timeToDie--;
-    if (!timeToDie)
-        kill();
+   // kill if it has been around too long
+   timeToDie--;
+   if (!timeToDie)
+      kill();
 
-    // do the inertia thing
-    Bullet::move(effects);
+   // do the inertia thing
+   Bullet::move(entities);
 }
 
 /*********************************************
  * MISSILE MOVE
  * Move the missile along by one time period
  *********************************************/
-void Missile::move(std::list<Effect*> & effects)
+void Missile::move(std::list<Entity*>& entities)
 {
-    // kill if it has been around too long
-   effects.push_back(new Exhaust(pt, v));
+   // kill if it has been around too long
+   entities.push_back(new Exhaust(pt, v));
 
-    // do the inertia thing
-    Bullet::move(effects);
+   // do the inertia thing
+   Bullet::move(entities);
 }
 
 /*********************************************
  * SHRAPNEL MOVE
  * Move the shrapnel along by one time period
  *********************************************/
-void Shrapnel::move(std::list<Effect*> & effects)
+void Shrapnel::move(std::list<Entity*>& entities)
 {
-    // kill if it has been around too long
-    timeToDie--;
-    if (!timeToDie)
-        kill();
+   // kill if it has been around too long
+   timeToDie--;
+   if (!timeToDie)
+      kill();
 
-    // add a streek
-    effects.push_back(new Streek(pt, v));
-    
-    // do the usual bullet stuff (like inertia)
-    Bullet::move(effects);
+   // add a streek
+   entities.push_back(new Streek(pt, v));
+
+   // do the usual bullet stuff (like inertia)
+   Bullet::move(entities);
 }
 
 /***************************************************************/
@@ -145,7 +156,7 @@ inline void glVertexPoint(const Position& point)
  * Draw a line on the screen from the beginning to the end.
  *************************************************************************/
 void Bullet::drawLine(const Position& begin, const Position& end,
-                      double red, double green, double blue) const
+   double red, double green, double blue) const
 {
    // Get ready...
    glBegin(GL_LINES);
@@ -165,7 +176,7 @@ void Bullet::drawLine(const Position& begin, const Position& end,
  * Draw a single point (square actually on the screen, r pixels by r pixels
  *************************************************************************/
 void Bullet::drawDot(const Position& point, double radius,
-                     double red, double green, double blue) const
+   double red, double green, double blue) const
 {
    // Get ready, get set...
    glBegin(GL_TRIANGLE_FAN);
@@ -201,11 +212,11 @@ void Bomb::output()
 {
    if (!isDead())
    {
-       // Bomb actually has a gradient to cut out the harsh edges
-       drawDot(pt, radius + 2.0, 0.50, 0.50, 0.00);
-       drawDot(pt, radius + 1.0, 0.75, 0.75, 0.00);
-       drawDot(pt, radius + 0.0, 0.87, 0.87, 0.00);
-       drawDot(pt, radius - 1.0, 1.00, 1.00, 0.00);
+      // Bomb actually has a gradient to cut out the harsh edges
+      drawDot(pt, radius + 2.0, 0.50, 0.50, 0.00);
+      drawDot(pt, radius + 1.0, 0.75, 0.75, 0.00);
+      drawDot(pt, radius + 0.0, 0.87, 0.87, 0.00);
+      drawDot(pt, radius - 1.0, 1.00, 1.00, 0.00);
    }
 }
 
@@ -215,8 +226,8 @@ void Bomb::output()
  *********************************************/
 void Shrapnel::output()
 {
-    if (!isDead())
-       drawDot(pt, radius, 1.0, 1.0, 0.0);
+   if (!isDead())
+      drawDot(pt, radius, 1.0, 1.0, 0.0);
 }
 
 /*********************************************
@@ -225,14 +236,14 @@ void Shrapnel::output()
  *********************************************/
 void Missile::output()
 {
-    if (!isDead())
-    {
-        // missile is a line with a dot at the end so it looks like fins.
-        Position ptNext(pt);
-        ptNext.add(v);
-        drawLine(pt, ptNext, 1.0, 1.0, 0.0);
-        drawDot(pt, 3.0, 1.0, 1.0, 1.0);
-    }
+   if (!isDead())
+   {
+      // missile is a line with a dot at the end so it looks like fins.
+      Position ptNext(pt);
+      ptNext.add(v);
+      drawLine(pt, ptNext, 1.0, 1.0, 0.0);
+      drawDot(pt, 3.0, 1.0, 1.0, 1.0);
+   }
 }
 
 /***************************************************************/

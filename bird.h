@@ -9,12 +9,13 @@
 
 #pragma once
 #include "position.h"
+#include "entity.h"
 
-/**********************
- * BIRD
- * Everything that can be shot
- **********************/
-class Bird
+ /**********************
+  * BIRD
+  * Everything that can be shot
+  **********************/
+class Bird : public Entity
 {
 protected:
    static Position dimensions; // size of the screen
@@ -23,26 +24,28 @@ protected:
    double radius;             // the size (radius) of the flyer
    bool dead;                 // is this flyer dead?
    int points;                // how many points is this worth?
-   
+
 public:
-   Bird() : dead(false), points(0), radius(1.0) { }
-   
+   Bird() : dead(false), points(0), radius(1.0) {}
+   virtual ~Bird() {}
+   void accept(Message& message);
+
    // setters
-   void operator=(const Position    & rhs) { pt = rhs;    }
-   void operator=(const Velocity & rhs) { v = rhs;     }
-   void kill()                          { dead = true; }
-   void setPoints(int pts)              { points = pts;}
+   void operator=(const Position& rhs) { pt = rhs; }
+   void operator=(const Velocity& rhs) { v = rhs; }
+   void kill() { dead = true; }
+   void setPoints(int pts) { points = pts; }
 
    // getters
-   bool isDead()           const { return dead;   }
-   Position getPosition()     const { return pt;     }
-   Velocity getVelocity()  const { return v;      }
+   bool isDead()           const { return dead; }
+   Position getPosition()     const { return pt; }
+   Velocity getVelocity()  const { return v; }
    double getRadius()      const { return radius; }
    int getPoints() const { return points; }
    bool isOutOfBounds() const
    {
       return (pt.getX() < -radius || pt.getX() >= dimensions.getX() + radius ||
-              pt.getY() < -radius || pt.getY() >= dimensions.getY() + radius);
+         pt.getY() < -radius || pt.getY() >= dimensions.getY() + radius);
    }
 
    // special functions
@@ -57,9 +60,9 @@ public:
 class Standard : public Bird
 {
 public:
-    Standard(double radius = 25.0, double speed = 5.0, int points = 10);
-    void draw();
-    void advance();
+   Standard(double radius = 25.0, double speed = 5.0, int points = 10);
+   void draw();
+   void advance();
 };
 
 /*********************************************
@@ -69,9 +72,9 @@ public:
 class Floater : public Bird
 {
 public:
-    Floater(double radius = 30.0, double speed = 5.0, int points = 15);
-    void draw();
-    void advance();
+   Floater(double radius = 30.0, double speed = 5.0, int points = 15);
+   void draw();
+   void advance();
 };
 
 /*********************************************
@@ -81,9 +84,9 @@ public:
 class Crazy : public Bird
 {
 public:
-    Crazy(double radius = 30.0, double speed = 4.5, int points = 30);
-    void draw();
-    void advance();
+   Crazy(double radius = 30.0, double speed = 4.5, int points = 30);
+   void draw();
+   void advance();
 };
 
 /*********************************************
@@ -93,7 +96,7 @@ public:
 class Sinker : public Bird
 {
 public:
-    Sinker(double radius = 30.0, double speed = 4.5, int points = 20);
-    void draw();
-    void advance();
+   Sinker(double radius = 30.0, double speed = 4.5, int points = 20);
+   void draw();
+   void advance();
 };
