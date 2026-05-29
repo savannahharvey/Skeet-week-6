@@ -9,6 +9,9 @@
 
 #include <cassert>
 #include "bird.h"
+#include "bullet.h"
+#include "skeetColleague.h"
+
 
 #ifdef __APPLE__
 #define GL_SILENCE_DEPRECATION
@@ -336,4 +339,15 @@ void Sinker::draw()
       drawDisk(pt, radius - 0.0, 0.0, 0.0, 0.8);
       drawDisk(pt, radius - 4.0, 0.0, 0.0, 0.0);
    }
+}
+
+void Bird::collide(Bullet& bullet)
+{
+   Event e;
+   e.type = EventType::COLLISION;
+   e.position = bullet.getPosition();
+   e.velocity = bullet.getVelocity();
+   e.pointValue = getPoints();
+
+   colleague->notify(e);
 }

@@ -9,6 +9,11 @@
 
 #pragma once
 #include "position.h"
+#include "event.h"
+
+
+class Bullet;
+class BirdColleague;
 
 /**********************
  * BIRD
@@ -23,15 +28,16 @@ protected:
    double radius;             // the size (radius) of the flyer
    bool dead;                 // is this flyer dead?
    int points;                // how many points is this worth?
-   
+   BirdColleague* colleague;
 public:
-   Bird() : dead(false), points(0), radius(1.0) { }
+   Bird() : dead(false), points(0), radius(1.0), colleague(nullptr) { }
    
    // setters
    void operator=(const Position    & rhs) { pt = rhs;    }
    void operator=(const Velocity & rhs) { v = rhs;     }
    void kill()                          { dead = true; }
    void setPoints(int pts)              { points = pts;}
+   void setColleague(BirdColleague* c)  { colleague = c; }
 
    // getters
    bool isDead()           const { return dead;   }
@@ -48,6 +54,7 @@ public:
    // special functions
    virtual void draw() = 0;
    virtual void advance() = 0;
+   void collide(Bullet& bullet);
 };
 
 /*********************************************

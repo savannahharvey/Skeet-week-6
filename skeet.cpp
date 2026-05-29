@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 #include "skeet.h"
+#include "skeetMediator.h"
+#include "skeetColleague.h"
 using namespace std;
 
 
@@ -30,6 +32,45 @@ using namespace std;
 #include <math.h>
 #define GLUT_TEXT GLUT_BITMAP_HELVETICA_12
 #endif // _WIN32
+
+/************************
+ * SKEET CONSTRUCTOR / DESTRUCTOR
+ ************************/
+Skeet::Skeet(Position & dimensions)
+   : dimensions(dimensions),
+     gun(Position(800.0, 0.0)),
+     time(),
+     score(),
+     hitRatio(),
+     bullseye(false),
+     mediator(nullptr),
+     birdColleague(nullptr),
+     bulletColleague(nullptr),
+     effectColleague(nullptr),
+     pointColleague(nullptr)
+{
+   // create mediator first (empty), then colleagues which reference the live lists
+   mediator = new SkeetMediator();
+   birdColleague = new BirdColleague(birds, mediator);
+   bulletColleague = new BulletColleague(bullets, mediator);
+   effectColleague = new EffectColleague(effects, mediator);
+   pointColleague = new PointColleague(points, mediator);
+
+   // wire them into the mediator
+   mediator->setColleagues(birdColleague, bulletColleague, effectColleague, pointColleague);
+}
+
+Skeet::~Skeet()
+{
+   // delete mediator and colleagues — Skeet still owns the containers
+   delete birdColleague;
+   delete bulletColleague;
+   delete effectColleague;
+   delete pointColleague;
+   delete mediator;
+
+   // Note: original code used raw pointers in lists without deleting items; leave that behavior for now.
+}
 
 /************************
  * SKEET ANIMATE
@@ -74,8 +115,8 @@ void Skeet::animate()
              minimumDistance(element->getPosition(), element->getVelocity(),
                              bullet->getPosition(),  bullet->getVelocity()))
          {
-            for (int i = 0; i < 25; i++)
-               effects.push_back(new Fragment(bullet->getPosition(), bullet->getVelocity()));
+            element->collide(*bullet);
+
             element->kill();
             bullet->kill();
             hitRatio.adjust(1);
@@ -421,11 +462,19 @@ void Skeet::spawn()
          size = 30.0;
          // spawns when there is nothing on the screen
          if (birds.size() == 0 && random(0, 15) == 1)
-            birds.push_back(new Standard(size, 7.0));
+         {
+            Bird* b = new Standard(size, 7.0);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Standard(size, 7.0));
+         {
+            Bird* b = new Standard(size, 7.0);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          break;
          
       // two kinds of birds in level 2
@@ -433,14 +482,26 @@ void Skeet::spawn()
          size = 25.0;
          // spawns when there is nothing on the screen
          if (birds.size() == 0 && random(0, 15) == 1)
-            birds.push_back(new Standard(size, 7.0, 12));
+         {
+            Bird* b = new Standard(size, 7.0, 12);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
 
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Standard(size, 5.0, 12));
+         {
+            Bird* b = new Standard(size, 5.0, 12);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          // spawn every 3 seconds
          if (random(0, 3 * 30) == 1)
-            birds.push_back(new Sinker(size));
+         {
+            Bird* b = new Sinker(size);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          break;
       
       // three kinds of birds in level 3
@@ -448,17 +509,33 @@ void Skeet::spawn()
          size = 20.0;
          // spawns when there is nothing on the screen
          if (birds.size() == 0 && random(0, 15) == 1)
-            birds.push_back(new Standard(size, 5.0, 15));
+         {
+            Bird* b = new Standard(size, 5.0, 15);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
 
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Standard(size, 5.0, 15));
+         {
+            Bird* b = new Standard(size, 5.0, 15);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Sinker(size, 4.0, 22));
+         {
+            Bird* b = new Sinker(size, 4.0, 22);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Floater(size));
+         {
+            Bird* b = new Floater(size);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          break;
          
       // three kinds of birds in level 4
@@ -466,20 +543,40 @@ void Skeet::spawn()
          size = 15.0;
          // spawns when there is nothing on the screen
          if (birds.size() == 0 && random(0, 15) == 1)
-            birds.push_back(new Standard(size, 4.0, 18));
+         {
+            Bird* b = new Standard(size, 4.0, 18);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
 
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Standard(size, 4.0, 18));
+         {
+            Bird* b = new Standard(size, 4.0, 18);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Sinker(size, 3.5, 25));
+         {
+            Bird* b = new Sinker(size, 3.5, 25);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Floater(size, 4.0, 25));
+         {
+            Bird* b = new Floater(size, 4.0, 25);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          // spawn every 4 seconds
          if (random(0, 4 * 30) == 1)
-            birds.push_back(new Crazy(size));
+         {
+            Bird* b = new Crazy(size);
+            b->setColleague(birdColleague);
+            birds.push_back(b);
+         }
          break;
          
       default:

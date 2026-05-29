@@ -21,6 +21,12 @@
 
 #include <list>
 
+class SkeetMediator;
+class BirdColleague;
+class BulletColleague;
+class EffectColleague;
+class PointColleague;
+
 /*************************************************************************
  * Skeet
  * The game class
@@ -28,8 +34,8 @@
 class Skeet
 {
 public:
-    Skeet(Position & dimensions) : dimensions(dimensions),
-        gun(Position(800.0, 0.0)), time(), score(), hitRatio(), bullseye(false) {}
+    Skeet(Position & dimensions);
+    ~Skeet();
 
     // handle all user input
     void interact(const UserInput& ui);
@@ -62,4 +68,11 @@ private:
     HitRatio hitRatio;             // the hit ratio for the birds
     Position dimensions;           // size of the screen
     bool bullseye;
+
+    // mediator / colleagues (one per class)
+    SkeetMediator* mediator;
+    BirdColleague* birdColleague;
+    BulletColleague* bulletColleague;
+    EffectColleague* effectColleague;
+    PointColleague* pointColleague;
 };
