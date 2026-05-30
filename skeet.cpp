@@ -54,7 +54,7 @@ Skeet::Skeet(Position & dimensions)
    birdColleague = new BirdColleague(birds, mediator);
    bulletColleague = new BulletColleague(bullets, mediator);
    effectColleague = new EffectColleague(effects, mediator);
-   pointColleague = new PointColleague(points, mediator);
+   pointColleague = new PointColleague(points, &score, mediator);
 
    // wire them into the mediator
    mediator->setColleagues(birdColleague, bulletColleague, effectColleague, pointColleague);
@@ -117,10 +117,11 @@ void Skeet::animate()
          {
             element->collide(*bullet);
 
+            // mark dead elements for removal
             element->kill();
             bullet->kill();
             hitRatio.adjust(1);
-            bullet->setValue(-(element->getPoints()));
+            bullet->setValue(0);
             element->setPoints(0);
          }
    

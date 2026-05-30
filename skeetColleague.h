@@ -1,5 +1,6 @@
 #pragma once
 #include "skeetMediator.h"
+#include "score.h"
 #include <list>
 
 struct Event;
@@ -77,11 +78,10 @@ class PointColleague : public SkeetColleague
 {
 private:
    std::list<Points>& points;
+   Score* score;
 
 public:
-   // removed unused int& score parameter — not used in processing
-   PointColleague(std::list<Points>& points, SkeetMediator* mediator)
-      : SkeetColleague(mediator), points(points) {}
-
+   PointColleague(std::list<Points>& points, Score* score, SkeetMediator* mediator)
+      : SkeetColleague(mediator), points(points), score(score) {}
    void processMessage(const Event& event) override;
 };

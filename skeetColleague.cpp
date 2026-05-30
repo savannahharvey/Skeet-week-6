@@ -17,6 +17,7 @@ void PointColleague::processMessage(const Event& event)
    if (event.type == COLLISION)
    {
       points.push_back(Points(event.position, event.pointValue));
+      score->adjust(event.pointValue);
    }
 }
 

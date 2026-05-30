@@ -28,6 +28,8 @@
     <ClCompile Include="position.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="skeet.cpp" />
+    <ClCompile Include="skeetColleague.cpp" />
+    <ClCompile Include="skeetMediator.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="uiInteract.cpp" />
   </ItemGroup>
@@ -35,11 +37,14 @@
     <ClInclude Include="bullet.h" />
     <ClInclude Include="bird.h" />
     <ClInclude Include="effect.h" />
+    <ClInclude Include="event.h" />
     <ClInclude Include="gun.h" />
     <ClInclude Include="points.h" />
     <ClInclude Include="position.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="skeet.h" />
+    <ClInclude Include="skeetColleague.h" />
+    <ClInclude Include="skeetMediator.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="uiInteract.h" />
   </ItemGroup>

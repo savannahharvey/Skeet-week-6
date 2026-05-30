@@ -1,10 +1,42 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ssamm\\OneDrive\\Documents\\BYUI\\sem 10 Spring 2026\\cse 331\\Skeet-week-6\\",
+  "WorkspaceRootPath": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\ssamm\\OneDrive\\Documents\\BYUI\\sem 10 Spring 2026\\cse 331\\Skeet-week-6\\gun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:skeet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\bird.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:bird.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\USERS\\KALEB\\DOCUMENTS\\CSE331\\SKEET-WEEK-6\\SKEETCOLLEAGUE.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:SKEETCOLLEAGUE.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeetColleague.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:skeetColleague.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:skeet.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\gun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:gun.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\gun.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:gun.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\bird.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:bird.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\event.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:event.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,11 +74,119 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "skeet.h",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeet.h",
+              "RelativeDocumentMoniker": "skeet.h",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeet.h",
+              "RelativeToolTip": "skeet.h",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEIAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-30T03:05:48.027Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "event.h",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\event.h",
+              "RelativeDocumentMoniker": "event.h",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\event.h",
+              "RelativeToolTip": "event.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-30T03:05:16.796Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "skeetColleague.cpp",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeetColleague.cpp",
+              "RelativeDocumentMoniker": "skeetColleague.cpp",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeetColleague.cpp",
+              "RelativeToolTip": "skeetColleague.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-30T03:02:32.828Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "skeetColleague.h",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeetColleague.h",
+              "RelativeDocumentMoniker": "skeetColleague.h",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeetColleague.h",
+              "RelativeToolTip": "skeetColleague.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-30T03:01:01.745Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "skeet.cpp",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeet.cpp",
+              "RelativeDocumentMoniker": "skeet.cpp",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\skeet.cpp*",
+              "RelativeToolTip": "skeet.cpp*",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAuwE4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-29T23:03:07.765Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "bird.cpp",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\bird.cpp",
+              "RelativeDocumentMoniker": "bird.cpp",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\bird.cpp",
+              "RelativeToolTip": "bird.cpp",
+              "ViewState": "AgIAAEsBAAAAAAAAAAAAAF4BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-05-29T23:23:50.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "bird.h",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\bird.h",
+              "RelativeDocumentMoniker": "bird.h",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\bird.h",
+              "RelativeToolTip": "bird.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-29T23:23:20.63Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "gun.h",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\gun.h",
+              "RelativeDocumentMoniker": "gun.h",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\gun.h",
+              "RelativeToolTip": "gun.h",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-05-20T02:41:07.35Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "gun.cpp",
-              "DocumentMoniker": "C:\\Users\\ssamm\\OneDrive\\Documents\\BYUI\\sem 10 Spring 2026\\cse 331\\Skeet-week-6\\gun.cpp",
+              "DocumentMoniker": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\gun.cpp",
               "RelativeDocumentMoniker": "gun.cpp",
-              "ToolTip": "C:\\Users\\ssamm\\OneDrive\\Documents\\BYUI\\sem 10 Spring 2026\\cse 331\\Skeet-week-6\\gun.cpp",
+              "ToolTip": "C:\\Users\\Kaleb\\Documents\\CSE331\\Skeet-week-6\\gun.cpp",
               "RelativeToolTip": "gun.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
